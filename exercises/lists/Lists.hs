@@ -90,12 +90,14 @@ concat (x:xs) = append x (concat xs)
 
 replicate :: Int -> Int -> [Int]
 replicate 0 _ = []
-replicate rep el = el : replicate (rep - 1) el
+replicate rep el
+    | rep < 0 = []
+    | otherwise = el : replicate (rep - 1) el
 
 
 interleave :: [Int] -> [Int] -> [Int]
 interleave [] _ = []
-interleave _ [] = []
+interleave (x:_) [] = [x]
 interleave (x:xs) (x':xs') = x : x' : interleave xs xs'
 
 
